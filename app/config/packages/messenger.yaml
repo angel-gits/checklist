@@ -1,0 +1,20 @@
+framework:
+    messenger:
+        # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
+        # failure_transport: failed
+
+        transports:
+            # https://symfony.com/doc/current/messenger.html#transport-configuration
+             amqp: "%env(MESSENGER_TRANSPORT_DSN)%"
+                # dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                # options:
+                #     exchange:
+                #         type: fanout
+            # failed: 'doctrine://default?queue_name=failed'
+            # sync: 'sync://'
+
+        routing:
+            # Route your messages to the transports
+            'App\Message\PostMessage': amqp
+            'App\Message\PatchMessage': amqp
+            'App\Message\DeleteMessage': amqp
