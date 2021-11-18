@@ -46,9 +46,8 @@ class TaskController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
 
-        $this->bus->dispatch(new PatchMessage($taskId, $data));
-
-        $list = $this->em->getRepository(Task::class)->findBy([], ['date' => 'ASC']);
+        $message = new PatchMessage($taskId, $data);
+        $this->bus->dispatch($message);
 
         return new JsonResponse(['message' => 'Task has been updated']);
     }

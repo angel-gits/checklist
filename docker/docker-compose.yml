@@ -12,7 +12,6 @@ services:
       - ../app/vendor:/var/www/html/vendor
     links:
       - mysql_checklist
-      - rabbitmq_checklist
 
   nginx_checklist:
     container_name: nginx_checklist
@@ -40,7 +39,7 @@ services:
 
   rabbitmq_checklist:
     image: rabbitmq:3.9-management
-    container_name: rabbitmq
+    container_name: rabbitmq_checklist
     environment:
       RABBITMQ_USER: ${RABBITMQ_DEFAULT_USER}
       RABBITMQ_PASS: ${RABBITMQ_DEFAULT_PASSWORD}
@@ -48,7 +47,6 @@ services:
     volumes: 
       - ../app:/var/www/html
       - ./config/rabbitmq:/etc/rabbitmq/conf.d
-      - ../app/vendor:/var/www/html/vendor
     restart: on-failure
     ports:
       - "5672:5672"

@@ -18,27 +18,25 @@ class PatchMessageHandler implements MessageHandlerInterface {
 
     public function __invoke(PatchMessage $message) {
         $id = $message->getId();
-
         $task = $this->em->getRepository(Task::class)->findOneBy(['id' => $id]);
 
         if(!is_null($task)) {
             $data = $message->getData();
-            if(!is_null($name = $data['name' ?? null])) {
-                $task->setName($name); 
+            if(isset($data['name'])) {
+                $task->setName($data['name']); 
             }
-            if(!is_null($description = $data['description'] ?? null)) {
-                $task->setDescription($description);
+            if(isset($data['description'])) {
+                $task->setDescription($data['description']);
             }
-            if(!is_null($date = $data['date'] ?? null)) {
-                $task->setDate(new DateTime($date)); 
+            if(isset($data['date'])) {
+                $task->setDate(new DateTime($data['date'])); 
             }
-            if(!is_null($status = $data['status'] ?? null)) {
-                $task->setStatus((int)$status);
+            if(isset($data['status'])) {
+                $task->setStatus((int)$data['status']);
             }
-            if(!is_null($done = $data['done'] ?? null)) {
-                $task->setDone($done);
+            if(isset($data['done'])) {
+                $task->setDone($data['done']);
             }
-
             $this->em->flush();
         }
     }
