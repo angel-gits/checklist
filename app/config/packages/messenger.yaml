@@ -5,13 +5,11 @@ framework:
 
         transports:
             # https://symfony.com/doc/current/messenger.html#transport-configuration
-             amqp: "%env(MESSENGER_TRANSPORT_DSN)%"
-                # dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
-                # options:
-                #     exchange:
-                #         type: fanout
-            # failed: 'doctrine://default?queue_name=failed'
-            # sync: 'sync://'
+            amqp:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    exchange:
+                        type: fanout
 
         routing:
             # Route your messages to the transports
